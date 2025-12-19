@@ -1,0 +1,21 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Java build
+target/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Log
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
