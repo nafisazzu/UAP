@@ -85,14 +85,26 @@ Fitur tambahan:
 
 ----
 
+## ⚠️ Exception Handling & Validasi
 
+- Aplikasi menerapkan exception handling untuk mencegah error dan crash program, antara lain:
+
+- Validasi input kosong
+
+- Validasi input angka (NumberFormatException)
+
+- Penanganan error file (IOException) saat membaca/menulis CSV
+
+- Error ditampilkan menggunakan JOptionPane
+
+- Exception ditangani menggunakan mekanisme try-catch.
+
+----
 ## ▶️ Cara Menjalankan Aplikasi
 
 1. Buka project menggunakan IntelliJ IDEA
 2. Pastikan folder `data/` dan file `students.csv` tersedia
 3. Jalankan file `Main.java`
-
----
 4. Login dan gunakan aplikasi
 
 ---
@@ -144,4 +156,3 @@ Aplikasi **Student Management System (SIMS)** telah memenuhi seluruh ketentuan *
 - Exception Handling
 - Laporan & testing manual
 
-Aplikasi siap untuk **didemo dan dikumpulkan**.
