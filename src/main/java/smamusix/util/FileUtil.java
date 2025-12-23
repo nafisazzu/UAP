@@ -9,15 +9,15 @@ import java.util.List;
 
 public class FileUtil {
 
-    // SAMAKAN DENGAN FILE DI PROJECT
+    
     private static final String FILE_NAME = "data/students.csv";
 
-    // ===== READ (saat aplikasi dibuka) =====
+  
     public static List<Student> readStudents() {
         List<Student> students = new ArrayList<>();
         File file = new File(FILE_NAME);
 
-        // Jika file belum ada, kembalikan list kosong
+        
         if (!file.exists()) {
             return students;
         }
@@ -25,7 +25,7 @@ public class FileUtil {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
 
-            // skip header
+           
             br.readLine();
 
             while ((line = br.readLine()) != null) {
@@ -34,11 +34,11 @@ public class FileUtil {
                 String[] data = line.split(",");
 
                 students.add(new Student(
-                        data[0],                     // NIS
-                        data[1],                     // Nama
-                        data[2],                     // Kelas
-                        data[3],                     // Jurusan
-                        LocalDate.parse(data[4])     // Tanggal Daftar
+                        data[0],                     
+                        data[1],                     
+                        data[2],                    
+                        data[3],                     
+                        LocalDate.parse(data[4])     
                 ));
             }
         } catch (Exception e) {
@@ -51,11 +51,11 @@ public class FileUtil {
         return students;
     }
 
-    // ===== WRITE (setiap CRUD) =====
+    
     public static void saveStudents(List<Student> students) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_NAME))) {
 
-            // header
+          
             pw.println("NIS,Nama,Kelas,Jurusan,TanggalDaftar");
 
             for (Student s : students) {
