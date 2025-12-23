@@ -8,7 +8,7 @@ Aplikasi ini dibuat untuk memenuhi **Ujian Akhir Praktikum (UAP) Mata Kuliah Pem
 Aplikasi mendukung pengelolaan data siswa secara lengkap (**CRUD**), dilengkapi dengan **login**, **navigasi dashboard**, serta **penyimpanan data permanen** menggunakan file **CSV**.
 
 ---
-
+----
 ## 🛠 Teknologi yang Digunakan
 
 - Java JDK 8+
