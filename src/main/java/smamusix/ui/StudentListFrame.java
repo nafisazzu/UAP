@@ -23,7 +23,7 @@ public class StudentListFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== TABLE =====
+       
         String[] columns = {"NIS", "Nama", "Kelas", "Jurusan", "Tanggal Daftar"};
         tableModel = new DefaultTableModel(columns, 0);
         table = new JTable(tableModel);
@@ -31,7 +31,7 @@ public class StudentListFrame extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(table);
 
-        // ===== TOP PANEL (SEARCH & SORT) =====
+        
         JPanel topPanel = new JPanel(new BorderLayout(10, 10));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -43,7 +43,7 @@ public class StudentListFrame extends JFrame {
         topPanel.add(txtSearch, BorderLayout.CENTER);
         topPanel.add(btnSort, BorderLayout.EAST);
 
-        // ===== BOTTOM PANEL (CRUD + NAVIGASI) =====
+        
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         JButton btnTambah = new JButton("Tambah");
@@ -56,43 +56,42 @@ public class StudentListFrame extends JFrame {
         bottomPanel.add(btnHapus);
         bottomPanel.add(btnKembali);
 
-        // ===== ADD TO FRAME =====
+        
         add(topPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // ===== ACTION =====
+      
 
-        // CREATE
+       
         btnTambah.addActionListener(e -> {
             new StudentFromFrame(null).setVisible(true);
             dispose();
         });
 
-        // UPDATE
+        
         btnEdit.addActionListener(e -> edit());
 
-        // DELETE
+        
         btnHapus.addActionListener(e -> delete());
 
-        // SEARCH
+        
         btnSearch.addActionListener(e -> search());
 
-        // SORT
+        
         btnSort.addActionListener(e -> {
             service.sortByName();
             refreshTable(service.getAll());
         });
 
-        // BACK TO DASHBOARD
+        
         btnKembali.addActionListener(e -> {
             new DashboardFrame().setVisible(true);
             dispose();
         });
     }
 
-    // ===== METHODS =====
-
+    
     private void refreshTable(List<Student> students) {
         tableModel.setRowCount(0);
         for (Student s : students) {
