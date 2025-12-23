@@ -8,7 +8,7 @@ public class LoginFrame extends JFrame {
     private JTextField txtUsername;
     private JPasswordField txtPassword;
 
-    // akun default (sederhana & aman untuk UAP)
+    
     private final String USERNAME = "admin";
     private final String PASSWORD = "12345";
 
@@ -18,8 +18,8 @@ public class LoginFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== WARNA CUSTOM =====
-        Color bgColor = new Color(33, 150, 243); // biru
+        
+        Color bgColor = new Color(33, 150, 243); 
         Color panelColor = Color.WHITE;
 
         JPanel mainPanel = new JPanel(new BorderLayout());
