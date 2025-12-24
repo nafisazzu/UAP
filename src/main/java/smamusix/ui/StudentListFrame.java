@@ -5,6 +5,7 @@ import smamusix.service.StudentService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.List;
 
@@ -19,79 +20,115 @@ public class StudentListFrame extends JFrame {
         service = new StudentService();
 
         setTitle("Data Siswa");
-        setSize(900, 450);
+        setSize(950, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-       
+        // ===== ROOT =====
+        JPanel root = new JPanel(new BorderLayout());
+        root.setBackground(new Color(248, 244, 239)); // cream
+
+        // ===== HEADER =====
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(new Color(121, 85, 72)); // coklat
+        header.setPreferredSize(new Dimension(0, 70));
+
+        JLabel title = new JLabel("Data Siswa", SwingConstants.CENTER);
+        title.setForeground(new Color(255, 248, 225));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        header.add(title, BorderLayout.CENTER);
+
+        // ===== SEARCH PANEL =====
+        JPanel searchPanel = new JPanel(new BorderLayout(10, 10));
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20));
+        searchPanel.setBackground(new Color(248, 244, 239));
+
+        txtSearch = new JTextField();
+        txtSearch.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        JButton btnSearch = createButton("🔍 Cari Nama");
+        JButton btnSort = createButton("⇅ Sort Nama");
+
+        searchPanel.add(btnSearch, BorderLayout.WEST);
+        searchPanel.add(txtSearch, BorderLayout.CENTER);
+        searchPanel.add(btnSort, BorderLayout.EAST);
+
+        // ===== TABLE =====
         String[] columns = {"NIS", "Nama", "Kelas", "Jurusan", "Tanggal Daftar"};
         tableModel = new DefaultTableModel(columns, 0);
         table = new JTable(tableModel);
         refreshTable(service.getAll());
 
+        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        table.setRowHeight(28);
+        table.setSelectionBackground(new Color(215, 204, 200));
+        table.setSelectionForeground(Color.BLACK);
+
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        tableHeader.setBackground(new Color(141, 110, 99));
+        tableHeader.setForeground(Color.WHITE);
+
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        
-        JPanel topPanel = new JPanel(new BorderLayout(10, 10));
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // ===== BOTTOM BUTTON PANEL =====
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        bottomPanel.setBackground(new Color(248, 244, 239));
 
-        txtSearch = new JTextField();
-        JButton btnSearch = new JButton("Cari Nama");
-        JButton btnSort = new JButton("Sort Nama");
-
-        topPanel.add(btnSearch, BorderLayout.WEST);
-        topPanel.add(txtSearch, BorderLayout.CENTER);
-        topPanel.add(btnSort, BorderLayout.EAST);
-
-        
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
-        JButton btnTambah = new JButton("Tambah");
-        JButton btnEdit = new JButton("Edit");
-        JButton btnHapus = new JButton("Hapus");
-        JButton btnKembali = new JButton("⬅ Kembali");
+        JButton btnTambah = createButton("➕ Tambah");
+        JButton btnEdit = createButton("✏ Edit");
+        JButton btnHapus = createButton("🗑 Hapus");
+        JButton btnKembali = createButton("⬅ Kembali");
 
         bottomPanel.add(btnTambah);
         bottomPanel.add(btnEdit);
         bottomPanel.add(btnHapus);
         bottomPanel.add(btnKembali);
 
-        
-        add(topPanel, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
+        // ===== ADD =====
+        root.add(header, BorderLayout.NORTH);
+        root.add(searchPanel, BorderLayout.BEFORE_FIRST_LINE);
+        root.add(scrollPane, BorderLayout.CENTER);
+        root.add(bottomPanel, BorderLayout.SOUTH);
 
-      
+        add(root);
 
-       
+        // ===== ACTION =====
         btnTambah.addActionListener(e -> {
             new StudentFromFrame(null).setVisible(true);
             dispose();
         });
 
-        
         btnEdit.addActionListener(e -> edit());
 
-        
         btnHapus.addActionListener(e -> delete());
 
-        
         btnSearch.addActionListener(e -> search());
 
-        
         btnSort.addActionListener(e -> {
             service.sortByName();
             refreshTable(service.getAll());
         });
 
-        
         btnKembali.addActionListener(e -> {
             new DashboardFrame().setVisible(true);
             dispose();
         });
     }
 
-    
+    // ===== BUTTON STYLE =====
+    private JButton createButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFocusPainted(false);
+        btn.setBackground(new Color(255, 253, 248));
+        btn.setForeground(new Color(93, 64, 55));
+        btn.setBorder(BorderFactory.createLineBorder(new Color(200, 180, 160)));
+        return btn;
+    }
+
+    // ===== METHODS =====
     private void refreshTable(List<Student> students) {
         tableModel.setRowCount(0);
         for (Student s : students) {
